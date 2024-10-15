@@ -12,10 +12,14 @@ nb_dimensions_input = 784
 # Init sequential model
 model = Sequential()
 
-model.add(Dense(200, input_shape=(nb_dimensions_input,), activation='relu'))
+model.add(Dense(300, input_shape=(nb_dimensions_input,), activation='relu'))
 
 # Adding second hidden layer
-model.add(Dense(200, activation='relu'))
+model.add(Dense(300, activation='relu'))
+
+# Adding two more hidden layer (exercise 6)
+model.add(Dense(150, activation='relu'))
+model.add(Dense(75, activation='relu'))
 
 # Adding out layer
 model.add(Dense(10, activation='softmax'))
@@ -27,7 +31,7 @@ model.summary()
 # Compiler le MLP en y associant une fonction de coût de type cross entropie catégorielle et un optimiseur de type descente stochastique du gradient (SDG).
 # Il sera probablement nécessaire d’importer des packages de Keras.
 
-model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=["accuracy"])
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=["accuracy"])
 
 # Exercise 3
 # Que signifie ces deux lignes ?
@@ -68,3 +72,19 @@ model.fit(x_train, y_train, epochs=12, verbose=1, validation_split=0.1)
 score = model.evaluate(x_test, y_test, verbose=0)
 print('Test score:', score[0])      # Test score: 2.301025152206421
 print('Test accuracy:', score[1])   # Test accuracy: 0.11349999904632568
+
+# Exercise 6
+# En agissant sur les différents paramètres à votre disposition, construire le système le plus performant possible.
+# (optimiseur et paramètres liés à l’optimiseur, topologie de l’architecture neuronale, fonction de coût, fonction de régularisation, de normalisation...)
+
+# Choosing adam as optimizer :
+    # Test score: 0.1538667529821396
+    # Test accuracy: 0.9656000137329102
+
+# Adding tree more layers :
+    # Test score: 0.1394253969192505
+    # Test accuracy: 0.9729999899864197
+
+# Adding more neurones to each layer :
+    # Test score: 0.12010600417852402
+    # Test accuracy: 0.9761000275611877
