@@ -25,3 +25,25 @@ model.summary()
 # Il sera probablement nécessaire d’importer des packages de Keras.
 
 model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=["accuracy"])
+
+# Exercise 3
+# Que signifie ces deux lignes ?
+    # Trouvez la bonne valeur de nb_dimensions_entree.
+    # Ces lignes permettent de transformer les images du jeu de données MNIST en un format que le MLP peut traiter.
+# Chaque image dans MNIST est de taille 28x28 pixels, donc la valeur de nb_dimensions_entree est 28 * 28 = 784.
+# Vous pouvez afficher le contenu des différentes structures de données impliquées ici.
+
+nb_dimensions_input = 784
+
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+print("x_train dimension:", x_train.shape)      # (60000, 28, 28)
+print("x_test dimensions:", x_test.shape)       # (10000, 28, 28)
+print("y_train dimensions:", y_train.shape)     # (60000,)
+print("y_test dimensions:", y_test.shape)       # (10000,)
+
+x_train = x_train.reshape(60000, nb_dimensions_input)
+x_test = x_test.reshape(10000, nb_dimensions_input)
+
+print("x_train dimensions after reshaping:", x_train.shape)  # (60000, 784)
+print("x_test dimensions after reshaping:", x_test.shape)    # (10000, 784)
