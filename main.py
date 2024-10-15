@@ -7,10 +7,12 @@ from tensorflow.keras.utils import to_categorical
 # Construire un MLP avec 2 couches cachées avec 200 neurones chacune et fonction d’activation de type ‘relu’ et une couche de sortie de type ‘softmax’.
 # Ce réseau traite des entrées de dimension 400 et propose 10 valeurs en sortie.
 
+nb_dimensions_input = 784
+
 # Init sequential model
 model = Sequential()
 
-model.add(Dense(200, input_shape=(400,), activation='relu'))
+model.add(Dense(200, input_shape=(nb_dimensions_input,), activation='relu'))
 
 # Adding second hidden layer
 model.add(Dense(200, activation='relu'))
@@ -34,8 +36,6 @@ model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=["accura
 # Chaque image dans MNIST est de taille 28x28 pixels, donc la valeur de nb_dimensions_entree est 28 * 28 = 784.
 # Vous pouvez afficher le contenu des différentes structures de données impliquées ici.
 
-nb_dimensions_input = 784
-
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
 print("x_train dimension:", x_train.shape)      # (60000, 28, 28)
@@ -56,3 +56,15 @@ print("x_test dimensions after reshaping:", x_test.shape)    # (10000, 784)
 nb_classes = 10
 y_train = to_categorical(y_train, nb_classes)
 y_test = to_categorical(y_test, nb_classes)
+
+# Exercise 5
+# Procéder à l’apprentissage et à l’évaluation de ce premier perceptron multi-couches (MLP).
+# Modifier le code si nécessaire
+
+# Launch the learning
+model.fit(x_train, y_train, epochs=12, verbose=1, validation_split=0.1)
+
+# Performances evaluation on data test
+score = model.evaluate(x_test, y_test, verbose=0)
+print('Test score:', score[0])      # Test score: 2.301025152206421
+print('Test accuracy:', score[1])   # Test accuracy: 0.11349999904632568
