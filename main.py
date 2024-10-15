@@ -1,6 +1,7 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Activation
 from tensorflow.keras.datasets import mnist
+from tensorflow.keras.utils import to_categorical
 
 # Exercise 1
 # Construire un MLP avec 2 couches cachées avec 200 neurones chacune et fonction d’activation de type ‘relu’ et une couche de sortie de type ‘softmax’.
@@ -47,3 +48,11 @@ x_test = x_test.reshape(10000, nb_dimensions_input)
 
 print("x_train dimensions after reshaping:", x_train.shape)  # (60000, 784)
 print("x_test dimensions after reshaping:", x_test.shape)    # (10000, 784)
+
+# Exercise 4
+# Quelle valeur doit être affectée à la variable nb_classes ?
+# Le nombre de classes dans le jeu de données MNIST est 10, car il y a 10 chiffres (0 à 9).
+
+nb_classes = 10
+y_train = to_categorical(y_train, nb_classes)
+y_test = to_categorical(y_test, nb_classes)
